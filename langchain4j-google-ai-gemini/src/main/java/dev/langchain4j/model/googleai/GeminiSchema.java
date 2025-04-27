@@ -1,7 +1,6 @@
 package dev.langchain4j.model.googleai;
 
-import com.google.gson.annotations.SerializedName;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
 
@@ -10,14 +9,25 @@ class GeminiSchema {
     private String format;
     private String description;
     private Boolean nullable;
-    @SerializedName("enum")
+
+    @JsonProperty("enum")
     private List<String> enumeration;
+
     private String maxItems;
     private Map<String, GeminiSchema> properties;
     private List<String> required;
     private GeminiSchema items;
 
-    GeminiSchema(GeminiType type, String format, String description, Boolean nullable, List<String> enumeration, String maxItems, Map<String, GeminiSchema> properties, List<String> required, GeminiSchema items) {
+    GeminiSchema(
+            GeminiType type,
+            String format,
+            String description,
+            Boolean nullable,
+            List<String> enumeration,
+            String maxItems,
+            Map<String, GeminiSchema> properties,
+            List<String> required,
+            GeminiSchema items) {
         this.type = type;
         this.format = format;
         this.description = description;
@@ -172,7 +182,10 @@ class GeminiSchema {
     }
 
     public String toString() {
-        return "GeminiSchema(type=" + this.getType() + ", format=" + this.getFormat() + ", description=" + this.getDescription() + ", nullable=" + this.getNullable() + ", enumeration=" + this.getEnumeration() + ", maxItems=" + this.getMaxItems() + ", properties=" + this.getProperties() + ", required=" + this.getRequired() + ", items=" + this.getItems() + ")";
+        return "GeminiSchema(type=" + this.getType() + ", format=" + this.getFormat() + ", description="
+                + this.getDescription() + ", nullable=" + this.getNullable() + ", enumeration=" + this.getEnumeration()
+                + ", maxItems=" + this.getMaxItems() + ", properties=" + this.getProperties() + ", required="
+                + this.getRequired() + ", items=" + this.getItems() + ")";
     }
 
     public static class GeminiSchemaBuilder {
@@ -186,8 +199,7 @@ class GeminiSchema {
         private List<String> required;
         private GeminiSchema items;
 
-        GeminiSchemaBuilder() {
-        }
+        GeminiSchemaBuilder() {}
 
         public GeminiSchemaBuilder type(GeminiType type) {
             this.type = type;
@@ -235,11 +247,23 @@ class GeminiSchema {
         }
 
         public GeminiSchema build() {
-            return new GeminiSchema(this.type, this.format, this.description, this.nullable, this.enumeration, this.maxItems, this.properties, this.required, this.items);
+            return new GeminiSchema(
+                    this.type,
+                    this.format,
+                    this.description,
+                    this.nullable,
+                    this.enumeration,
+                    this.maxItems,
+                    this.properties,
+                    this.required,
+                    this.items);
         }
 
         public String toString() {
-            return "GeminiSchema.GeminiSchemaBuilder(type=" + this.type + ", format=" + this.format + ", description=" + this.description + ", nullable=" + this.nullable + ", enumeration=" + this.enumeration + ", maxItems=" + this.maxItems + ", properties=" + this.properties + ", required=" + this.required + ", items=" + this.items + ")";
+            return "GeminiSchema.GeminiSchemaBuilder(type=" + this.type + ", format=" + this.format + ", description="
+                    + this.description + ", nullable=" + this.nullable + ", enumeration=" + this.enumeration
+                    + ", maxItems=" + this.maxItems + ", properties=" + this.properties + ", required=" + this.required
+                    + ", items=" + this.items + ")";
         }
     }
 }
